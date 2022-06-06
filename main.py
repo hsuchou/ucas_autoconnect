@@ -28,10 +28,10 @@ if __name__ == '__main__':
         elif command == '5':
             a.log_in()
             while 1:
-                cmd = 'ping baidu.com -c 4'
-                result = os.system(cmd)
+                cmd = "ping www.baidu.com -c 4 | grep \"packet loss\" | awk -F, {'print$3'} | cut -d' ' -f2"
+                result = os.popen(cmd).read()
                 print(result) # 0/512
-                if result != 0:
+                if result != "0%":
                     os.system('nmcli conn up UCAS')
                     a.log_in()
                 os.system("sleep 10")
